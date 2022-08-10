@@ -10,21 +10,31 @@ def solution(s):
     """    
     answer = 1001
 
-    for unit_n in range(len(s)):
+    for unit_n in range(int(len(s)/2)+1): # 문자열이 1개일 경우를 고려하여 +1
         rep_n = 0
         str_len = 0
-        for n in range(int(len(s)/(unit_n+1))):
-            
-            if s[n*(unit_n+1):(n+1)*(unit_n+1)] == s[(n+1)*(unit_n+1):(n+2)*(unit_n+1)]:
+        rep_list = []
+
+        for i in range(0, len(s), unit_n+1):
+            rep_list.append(s[i:i+unit_n+1]) #미리 반복문자열의 개수만큼 나누어 저장
+        
+        for n in range(len(rep_list)-1):
+
+            if rep_list[n] == rep_list[n+1]:
                 rep_n += 1 
-            elif rep_n != 0:
-                str_len = str_len + len(str(rep_n)) + (unit_n+1)
-                rep_n = 0
             else:
-                str_len = str_len + (unit_n+1)
-                        
-            print(unit_n,'  ', n,'  now   ',str_len)
-        str_len = str_len + len(s[(n+1)*(unit_n+1):(n+2)*(unit_n+1)])
+                if rep_n != 0:
+                    str_len = str_len + len(str(rep_n+1)) + (unit_n+1)
+                    rep_n = 0
+                else:
+                    str_len = str_len + (unit_n+1)
+                
+        if rep_n != 0:
+            str_len = str_len + len(str(rep_n+1)) + (unit_n+1)
+            rep_n = 0
+        else:
+            str_len = str_len + len(rep_list[-1])
+        
         if str_len < answer:
             answer = str_len
 
