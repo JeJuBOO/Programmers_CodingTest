@@ -1,12 +1,15 @@
+import math
 def solution(n,time):
-    test_time = [0 for _ in range(len(time))]
-    
-    for _ in range(n):
-        expect_time = [test_time[i]+time[i] for i in range(len(time))]
-        test_idx = expect_time.index(min(expect_time))
-        test_time[test_idx] += time[test_idx]
-        print(test_time)
+    x = 0
+    for i in time:
+        x += 1/i
+    near_time = n/x
+    answer_list = []
+    for i in time:
+        if near_time%i == 0:
+            answer_list.append(int(i*(near_time//i)))
+        else:
+            answer_list.append(int(i*(near_time//i)+i))
 
-    return max(test_time)
-
-solution(6,[7,10])
+    return min(answer_list)
+print(solution(2, [10, 10,3,5,6,2]))
