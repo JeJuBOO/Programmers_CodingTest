@@ -1,8 +1,5 @@
 def solution(numbers, target):
-    count = 0
     stack_num = [sum(numbers)]   
-    if sum(numbers) == target:
-        count += 1
  
     for i in range(len(numbers)):
         num = [n - numbers[i]*2 for n in stack_num[:]]
