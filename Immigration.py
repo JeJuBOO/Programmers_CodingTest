@@ -5,18 +5,25 @@ def solution(n,time):
     for i in time:
         x += 1/i   
     near_time = n/x
-    n_t = int(near_time)
 
-    while 1:
+    n_t = int(near_time)
+    max_t = max(time)*n
+    min_t = min(time)
+
+    while min_t <= max_t:
         human = 0
         for t in time:
             human += n_t//t
+            if human >= n:
+                break
         if human >= n:
-            return n_t
+            answer = n_t
+            max_t = n_t - 1
         else:
-            n_t += 1
-        print(n_t-1, human)
-
+            min_t = n_t + 1
+        n_t = (min_t+max_t)//2
+        
+    return answer
     
     # answer_list = {}
     # for j in time:
